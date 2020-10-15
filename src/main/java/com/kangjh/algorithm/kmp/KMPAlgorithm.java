@@ -33,6 +33,7 @@ public class KMPAlgorithm {
         for (int i = 0, j = 0; i < str1.length(); i++) {
             //需要处理str1.charAt(i) ！= str2.charAt(j), 去调整j 的大小
             //KMP 算法核心点, 可以验证...
+            // 移动位数 = 已匹配的字符数 - 对应的部分匹配值
             while (j > 0 && str1.charAt(i) != str2.charAt(j)) {
                 j = next[j - 1];
             }
@@ -49,6 +50,9 @@ public class KMPAlgorithm {
 
     /**
      * 获取到一个字符串(子串) 的部分匹配值表
+     * "部分匹配"的实质是，有时候，字符串头部和尾部会有重复。
+     * 比如，"ABCDAB"之中有两个"AB"，那么它的"部分匹配值"就是2（"AB"的长度）。
+     * 搜索词移动的时候，第一个"AB"向后移动4位（字符串长度-部分匹配值），就可以来到第二个"AB"的位置。
      */
     public static int[] kmpNext(String dest) {
         //创建一个next 数组保存部分匹配值
